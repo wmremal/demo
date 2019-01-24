@@ -1,13 +1,14 @@
 package com.example.demo.domain;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 @Entity
 public class Fastighet {
 
@@ -17,11 +18,9 @@ public class Fastighet {
 	private String kommun;
 	private String fastighetsnamn;
 	
-	@OneToMany(mappedBy="fastighet")
-	private List<Geometri> geometrier;
-	
-	@OneToMany(mappedBy="fastighet")
-	private List<Agande> agarna;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="geometri_id")
+	private Geometri geometri;
 	
 	
 	public UUID getId() {
@@ -37,6 +36,15 @@ public class Fastighet {
 		this.kommun = kommun;
 	}
 	
+	public Geometri getGeometri() {
+		return geometri;
+	}
+	public void setGeometri(Geometri geometri) {
+		this.geometri = geometri;
+		if(!geometri.getFastighets().contains(this)) {
+			geometri.getFastighets().add(this);
+		}
+	}
 	public String getFastighetsnamn() {
 		return fastighetsnamn;
 	}
@@ -44,35 +52,9 @@ public class Fastighet {
 		this.fastighetsnamn = fastighetsnamn;
 		
 	}
-	public List<Geometri> getGeometrier() {
-		return geometrier;
-	}
-	public void setGeometrier(List<Geometri> geometrier) {
-		this.geometrier = geometrier;
-	}
-	public void addGeometri(Geometri geometri) {
-		this.geometrier.add(geometri);
-		if(geometri.getFastighet()!=this) {
-			geometri.setFastighet(this);
-		}
-	
-	}
 	@Override
 	public String toString() {
-		return "Fastighet [id=" + id + ", kommun=" + kommun + ", fastighetsnamn=" + fastighetsnamn + ", geometrier="
-				+ geometrier + "]";
+		return "Fastighet [id=" + id + ", kommun=" + kommun + ", fastighetsnamn=" + fastighetsnamn + ", geometri="
+				+ geometri + "]";
 	}
-	public List<Agande> getAgarna() {
-		return agarna;
-	}
-	public void setAgarna(List<Agande> agarna) {
-		this.agarna = agarna;
-	}
-	public void addAgare(Agande agare) {
-		this.agarna.add(agare);
-		if(agare.getFastighet()!=this) {
-			agare.setFastighet(this);
-		}
-	}
-	
 }

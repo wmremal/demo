@@ -1,14 +1,13 @@
 package com.example.demo.domain;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -20,9 +19,8 @@ public class Geometri {
 	private String granslinje;
 	private float yta;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="fastighet_id")
-	private Fastighet fastighet;
+	@OneToMany(mappedBy="geometri")
+	private List<Fastighet> fastighets;
 	public UUID getId() {
 		return id;
 	}
@@ -41,20 +39,21 @@ public class Geometri {
 	public void setYta(float yta) {
 		this.yta = yta;
 	}
-	
-	
+	public List<Fastighet> getFastighets() {
+		return fastighets;
+	}
+	public void setFastighets(List<Fastighet> fastighets) {
+		this.fastighets = fastighets;
+	}
+	public void addFastighet(Fastighet fastighet) {
+		this.fastighets.add(fastighet);
+		if(fastighet.getGeometri()!=this) {
+			fastighet.setGeometri(this);
+		}
+	}
 	@Override
 	public String toString() {
 		return "Geometri [id=" + id + ", granslinje=" + granslinje + ", yta=" + yta + "]";
-	}
-	public Fastighet getFastighet() {
-		return fastighet;
-	}
-	public void setFastighet(Fastighet fastighet) {
-		this.fastighet = fastighet;
-		if(!fastighet.getGeometrier().contains(this)) {
-			fastighet.getGeometrier().add(this);
-		}
 	}
 	
 }
