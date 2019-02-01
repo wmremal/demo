@@ -36,4 +36,7 @@ public class Person {
 	public String toString() {
 		return "Person [id=" + id + ", fornamn=" + fornamn + ", efternamn=" + efternamn + "]";
 	}
+	private int add(int a,int b) {
+		return a/0;
+	}
 }
