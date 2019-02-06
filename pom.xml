@@ -24,6 +24,7 @@
 		<java.version>1.8</java.version>
 		<start-class>DemoApplication</start-class>
 		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+		<archiva.URL>http://arman.mywire.org:8082/</archiva.URL>
 	</properties>
 
 	<dependencies>
@@ -86,4 +87,20 @@
 			<url>https://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
+	
+	<distributionManagement>
+
+		<repository>
+		 <id>archiva</id>
+		 <name>releases</name>
+		 <url>${archiva.URL}/repository/internal</url>
+		 </repository>
+
+		<snapshotRepository>
+		 <id>snapshots</id>
+		 <name>snapshots</name>
+		 <url>${archiva.URL}/repository/snapshots</url>
+		 </snapshotRepository>
+
+		</distributionManagement>
 </project>

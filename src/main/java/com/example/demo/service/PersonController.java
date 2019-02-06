@@ -11,5 +11,6 @@ import com.example.demo.domain.Person;
 @RepositoryRestResource(collectionResourceRel="person",path="person")
 public interface PersonController extends PagingAndSortingRepository<Person, UUID> {
 
+	
 	List<Person> findByEfternamn(@Param("efternamn") String efternamn);
 }
