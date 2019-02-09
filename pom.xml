@@ -93,13 +93,13 @@
 		<repository>
 		 <id>archiva</id>
 		 <name>releases</name>
-		 <url>${archiva.URL}/repository/internal</url>
+		 <url>${archiva.URL}/repository/arman/internal</url>
 		 </repository>
 
 		<snapshotRepository>
 		 <id>snapshots</id>
 		 <name>snapshots</name>
-		 <url>${archiva.URL}/repository/snapshots</url>
+		 <url>${archiva.URL}/repository/arman/snapshots</url>
 		 </snapshotRepository>
 
 		</distributionManagement>
